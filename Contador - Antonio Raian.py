@@ -15,49 +15,55 @@ import os
 LEDS = [17, 27, 22, 10, 9, 11, 5, 6]
 BTN_START = 23
 BTN_CLEAR = 24
+#função pra limpar o console
+clear = lambda: os.system('clear')
 
+#Setando o modo de operação
 GPIO.setmode(GPIO.BCM)
 
-
+#inicializando todos os pinos dos leds
 for i in LEDS:
 	GPIO.setup(i, GPIO.OUT, initial=GPIO.LOW)
 
+#Inicializando Botões
 GPIO.setup(BTN_START, GPIO.IN, pull_up_down = GPIO.PUD_DOWN)
 GPIO.setup(BTN_CLEAR, GPIO.IN, pull_up_down = GPIO.PUD_DOWN)
 
-clear = lambda: os.system('clear')
-
-def binario(n):
+#Função q transforma decimal para binário
+def binario(num):
 	resultado = []
 	for i in range(8):
-		resultado.append(n & 1) #AND binário
-		n >>= 1 #Shift direita
+		resultado.append(num & 1) #AND binário
+		num >>= 1 #Shift direita
 	return resultado
-def setPins(value):
-	for pin, bit in zip(LEDS, binario(value)):
-		GPIO.output(pin, bit)
 
-valor = 0
+#Função pra setar o valor binário nos	LEDS
+def setPins(valor):
+	for led in LEDS:
+		for bit in binario(valor):
+			GPIO.output(led, bit)
+
+count = 0
 
 # def contador(pino):
 while 1:
 	clear()
-	print('Valor atual = ', valor)
+	print('Valor atual = ', count)
 
 	if GPIO.input(BTN_START) == GPIO.HIGH:
-		setPins(valor)
+		setPins(count)
 		time.sleep(0.8)
 
-		valor += 1
-		if valor == 256:
-			valor = 0
+		count += 1
+		if count == 256:
+			count = 0
 
 	if GPIO.input(BTN_CLEAR) == GPIO.HIGH:
-		setPins(valor)
-		valor = 0
+		setPins(count)
+		count = 0
 
 def cleanUp(pino):
-	valor = 0
+	count = 0
 
 # GPIO.add_event_detect(BTN_START, GPIO.BOTH, callback=contador, bouncetime=100)
 # GPIO.add_event_detect(BTN_CLEAR, GPIO.BOTH, callback=cleanUp, bouncetime=100)
