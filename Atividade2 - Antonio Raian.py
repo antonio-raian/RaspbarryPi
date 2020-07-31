@@ -19,7 +19,7 @@ GPIO.setup(LED, GPIO.OUT)
 
 print("Raspberry Pi blink\n")
 while 1:
-  GPIO.output(LED, GPIO.HIGH) #Aciona o pino energizando-o
+  GPIO.output(LED, GPIO.HIGH) #Aciona o pino 
   time.sleep(1.5) #Espera um segundo e meio
   GPIO.output(LED, GPIO.LOW) #Desliga o pino
   time.sleep(0.5) #espera meio segundo

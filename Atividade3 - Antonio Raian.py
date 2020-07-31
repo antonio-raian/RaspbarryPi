@@ -23,7 +23,7 @@ def myReturn(pin):
   GPIO.output(LED, btnValue)
 
 print("Raspberry Pi Button\n")
-GPIO.add_event_detect(BTN, GPIO.BOTH, callback=myReturn, bouncetime=100)
+GPIO.add_event_detect(BTN, GPIO.BOTH, callback=myReturn, bouncetime=400)
 
 try:
   time.sleep(500)
