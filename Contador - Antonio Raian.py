@@ -2,7 +2,7 @@
 #
 # Projeto: Minicuros - Utilizando a GPIO da Raspberry Pi
 # Autor: Antonio Raian Mendes <raymendesjr2013@gmail.com>
-# Atividade: 3 - Debouncing digital
+# Atividade: 4 - Contador Binário
 #
 #########################################################
 
@@ -111,4 +111,3 @@ if __name__ == '__main__':
 		time.sleep(0.5)
 	except KeyboardInterrupt:
   		GPIO.clean
-
