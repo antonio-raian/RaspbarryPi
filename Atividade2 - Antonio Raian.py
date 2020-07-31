@@ -2,7 +2,7 @@
 #
 # Projeto: Minicuros - Utilizando a GPIO da Raspberry Pi
 # Autor: Antonio Raian Mendes <raymendesjr2013@gmail.com>
-# Atividade: 3 - Debouncing digital
+# Atividade: 2 - Acender LED
 #
 #########################################################
 
@@ -11,21 +11,16 @@ import time
 
 #define uma variavel com o valor do pino usado
 LED = 17
-BTN = 18
 
+#Seta o GPIO para o modo BCM, poderia ser o modo BOARD
 GPIO.setmode(GPIO.BCM)
+#Identifico o meu pino e digo q ele é de saída
 GPIO.setup(LED, GPIO.OUT)
-GPIO.setup(BTN, GPIO.IN, pull_up_down = GPIO.PUD_DOWN)
 
-def myReturn(pin):
-  print("Evento %s = %s" % (pin, GPIO.input(pin)))
-  btnValue = GPIO.input(BTN)
-  GPIO.output(LED, btnValue)
+print("Raspberry Pi blink\n")
+while 1:
+  GPIO.output(LED, GPIO.HIGH) #Aciona o pino energizando-o
+  time.sleep(1.5) #Espera um segundo e meio
+  GPIO.output(LED, GPIO.LOW) #Desliga o pino
+  time.sleep(0.5) #espera meio segundo
 
-print("Raspberry Pi Button\n")
-GPIO.add_event_detect(BTN, GPIO.BOTH, callback=myReturn, bouncetime=100)
-
-try:
-  time.sleep(500)
-except KeyboardInterrupt:
-  GPIO.cleanup()
